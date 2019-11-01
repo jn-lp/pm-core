@@ -1,0 +1,40 @@
+{
+  "name": "core",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "eslint .",
+    "fix": "eslint . --fix"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@koa/cors": "^2.2.3",
+    "bcrypt": "^3.0.6",
+    "bcrypt-nodejs": "0.0.3",
+    "dotenv": "^8.2.0",
+    "jsonwebtoken": "^8.5.1",
+    "koa": "^2.10.0",
+    "koa-body": "^4.1.1",
+    "koa-convert": "^1.2.0",
+    "koa-passport": "^4.1.3",
+    "koa-router": "^7.4.0",
+    "moment": "^2.24.0",
+    "pg": "^7.12.1",
+    "uuid": "^3.3.3"
+  },
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-prettier": "^6.5.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.1.1",
+    "eslint-plugin-react": "^7.16.0",
+    "make-runnable": "^1.3.6",
+    "prettier": "^1.18.2"
+  }
+}

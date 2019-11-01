@@ -1,0 +1,11 @@
+{
+  "extends": ["airbnb", "prettier"],
+  "plugins": ["prettier"],
+  "rules": {
+    "prettier/prettier": ["error"],
+    "global-require": "off",
+    "no-console": "off",
+    "no-void": "off",
+    "no-async-promise-executor": "warn"
+  }
+}
