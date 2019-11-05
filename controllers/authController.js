@@ -8,14 +8,14 @@ const msg = {
 };
 
 module.exports = {
-  signup: async ctx => {
-    const {username, password} = ctx.request.body;
+  signup: async (ctx) => {
+    const { username, password } = ctx.request.body;
     if (!username) ctx.throw(422, 'Username required.');
     if (!password) ctx.throw(422, 'Password required.');
 
     const dbUser = await Users.create(username, await bcrypt.hash(password));
 
-    const payload = {sub: dbUser.id};
+    const payload = { sub: dbUser.id };
     const token = jwt.sign(payload, secret);
     ctx.body = {
       user: {
@@ -25,8 +25,8 @@ module.exports = {
     };
   },
 
-  login: async ctx => {
-    const {username, password} = ctx.request.body;
+  login: async (ctx) => {
+    const { username, password } = ctx.request.body;
     if (!username) ctx.throw(422, 'Username required.');
     if (!password) ctx.throw(422, 'Password required.');
 
@@ -34,7 +34,7 @@ module.exports = {
 
     if (!dbUser) ctx.throw(401, 'No such user.');
     if (await bcrypt.compare(password, dbUser.password)) {
-      const payload = {sub: dbUser.id};
+      const payload = { sub: dbUser.id };
       const token = jwt.sign(payload, secret);
       ctx.body = {
         user: {
@@ -45,5 +45,13 @@ module.exports = {
     } else {
       ctx.throw(401, msg.wrongValue);
     }
+  },
+  getUser: async (ctx) => {
+    const { sub: id } = await jwt.verify(ctx.headers.authorization, secret);
+    const dbUser = await Users.getOne('id', id);
+
+    ctx.body = {
+      username: dbUser.username,
+    };
   },
 };

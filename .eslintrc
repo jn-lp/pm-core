@@ -1,8 +1,6 @@
 {
-  "extends": ["airbnb", "prettier"],
-  "plugins": ["prettier"],
+  "extends": ["airbnb"],
   "rules": {
-    "prettier/prettier": ["error"],
     "global-require": "off",
     "no-console": "off",
     "no-void": "off",

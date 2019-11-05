@@ -1,4 +1,4 @@
-const {Pool} = require('pg');
+const { Pool } = require('pg');
 const dotenv = require('dotenv');
 
 dotenv.config();
@@ -24,11 +24,11 @@ const createTables = () => {
 
   pool
     .query(queryText)
-    .then(res => {
+    .then((res) => {
       console.log(res);
       pool.end();
     })
-    .catch(err => {
+    .catch((err) => {
       console.log(err);
       pool.end();
     });
@@ -38,11 +38,11 @@ const dropTables = () => {
   const queryText = 'DROP TABLE IF EXISTS users';
   pool
     .query(queryText)
-    .then(res => {
+    .then((res) => {
       console.log(res);
       pool.end();
     })
-    .catch(err => {
+    .catch((err) => {
       console.log(err);
       pool.end();
     });

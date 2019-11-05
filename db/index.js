@@ -1,4 +1,4 @@
-const {Pool} = require('pg');
+const { Pool } = require('pg');
 const dotenv = require('dotenv');
 
 dotenv.config();
@@ -8,11 +8,10 @@ const pool = new Pool({
 });
 
 module.exports = {
-  query: (text, params) =>
-    new Promise((resolve, reject) => {
-      pool
-        .query(text, params)
-        .then(res => void resolve(res))
-        .catch(err => void reject(err));
-    }),
+  query: (text, params) => new Promise((resolve, reject) => {
+    pool
+      .query(text, params)
+      .then((res) => void resolve(res))
+      .catch((err) => void reject(err));
+  }),
 };
