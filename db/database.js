@@ -16,6 +16,7 @@ const createTables = () => {
       users(
         id UUID PRIMARY KEY,
         username VARCHAR(128) NOT NULL,
+        projects VARCHAR(128)[] NOT NULL,
         user_type VARCHAR(128) NOT NULL,
         password VARCHAR(128) NOT NULL,
         created_date TIMESTAMP,

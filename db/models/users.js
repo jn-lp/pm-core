@@ -57,6 +57,26 @@ module.exports = {
     return response.rows[0];
   },
 
+  async addProject(userId, projectId) {
+    const updateProjects = `UPDATE users
+      SET projects = array_append(projects, $1)
+      where id=$2
+      returning *`;
+
+    const { rows } = await db.query(updateProjects, [projectId, userId]);
+    return rows[0];
+  },
+
+  async removeProject(userId, projectId) {
+    const updateProjects = `UPDATE users
+      SET projects = array_remove(projects, $1)
+      where id=$2
+      returning *`;
+
+    const { rows } = await db.query(updateProjects, [projectId, userId]);
+    return rows[0];
+  },
+
   async delete(id) {
     const deleteQuery = 'DELETE FROM users WHERE id=$1 returning *';
     await db.query(deleteQuery, [id]);

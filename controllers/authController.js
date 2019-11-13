@@ -20,6 +20,7 @@ module.exports = {
     ctx.body = {
       user: {
         username: dbUser.username,
+        projects: dbUser.projects,
       },
       jwt: token,
     };
@@ -39,6 +40,7 @@ module.exports = {
       ctx.body = {
         user: {
           username: dbUser.username,
+          projects: dbUser.projects,
         },
         jwt: token,
       };
@@ -46,12 +48,32 @@ module.exports = {
       ctx.throw(401, msg.wrongValue);
     }
   },
+
   getUser: async (ctx) => {
     const { sub: id } = await jwt.verify(ctx.headers.authorization, secret);
     const dbUser = await Users.getOne('id', id);
 
     ctx.body = {
       username: dbUser.username,
+      projects: dbUser.projects,
+    };
+  },
+
+  addUserProject: async (ctx) => {
+    const { sub: id } = await jwt.verify(ctx.headers.authorization, secret);
+    const dbUser = await Users.addProject(id, ctx.request.body.id);
+
+    ctx.body = {
+      projects: dbUser.projects,
+    };
+  },
+
+  removeUserProject: async (ctx) => {
+    const { sub: id } = await jwt.verify(ctx.headers.authorization, secret);
+    const dbUser = await Users.removeProject(id, ctx.request.body.id);
+
+    ctx.body = {
+      projects: dbUser.projects,
     };
   },
 };

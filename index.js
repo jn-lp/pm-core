@@ -2,9 +2,9 @@ const Koa = require('koa');
 const Router = require('koa-router');
 const cors = require('@koa/cors');
 const koaBody = require('koa-body')();
-const { errorHandler, authenticated } = require('./middleware/');
+const { errorHandler } = require('./middleware/');
 
-const { authController } = require('./controllers/');
+const { authController, projectController } = require('./controllers/');
 
 const app = new Koa();
 const router = new Router();
@@ -12,16 +12,25 @@ const router = new Router();
 app.use(errorHandler);
 app.use(cors());
 
-router.get('/user', koaBody, authController.getUser);
-router.post('/signup', koaBody, authController.signup);
-router.post('/login', koaBody, authController.login);
+// auth
+router.all('/auth', (ctx) => {
+  ctx.body = `list of available routes on AUTH subroute:
+  * GET:/user - get User
+  * POST:/signup - create new user
+  * POST:/login - sign-in`;
+});
+router.get('/auth/user', koaBody, authController.getUser);
+router.post('/auth/signup', koaBody, authController.signup);
+router.post('/auth/login', koaBody, authController.login);
 
-router.get('/data', async (ctx) => {
-  ctx.body = ['data test', '1', '2'];
+// project
+router.all('/project', (ctx) => {
+  ctx.body = `list of available routes on PROJECT subroute:
+  * POST:/project - get Project
+  * POST:/create - create new project`;
 });
-router.get('/test', authenticated, async (ctx) => {
-  ctx.body = 'protected data test';
-});
+router.post('/project/project', koaBody, projectController.getProject);
+router.post('/project/create', koaBody, projectController.create);
 
 app
   .use(router.routes())

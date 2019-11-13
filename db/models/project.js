@@ -3,7 +3,7 @@ const uuidv4 = require('uuid/v4');
 const db = require('../index');
 
 module.exports = {
-  async create({ name }) {
+  async create(name) {
     const text = `INSERT INTO
       projects(project_id, name, created_date, modified_date)
       VALUES($1, $2, $3, $4)
@@ -22,7 +22,7 @@ module.exports = {
   },
 
   async getOne(id) {
-    const text = 'SELECT * FROM projects WHERE id = $1';
+    const text = 'SELECT * FROM projects WHERE project_id = $1';
     const { rows } = await db.query(text, [id]);
     if (!rows[0]) {
       return { message: 'projects not found' };
